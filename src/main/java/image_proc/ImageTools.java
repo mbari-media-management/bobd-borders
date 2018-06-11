@@ -14,7 +14,7 @@ public class ImageTools {
     /**
      * Threshold value for black pixel component intersection
      */
-    private static final int B_MAX = 15;
+    private static final int B_MAX = 30;
 
     /**
      * Fetch image from internet given url

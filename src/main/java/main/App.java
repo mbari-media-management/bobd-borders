@@ -108,7 +108,7 @@ class App {
         int totalImages = 0;
         for (String concept : conceptMap.keySet()) totalImages += conceptMap.get(concept).size();
 
-        long begin = System.currentTimeMillis();
+        long begin = System.nanoTime();
         System.out.println("Fetching a total of " + totalImages + " images... ");
 
         int imageCount = 0;

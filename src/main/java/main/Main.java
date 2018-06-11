@@ -14,20 +14,20 @@ public class Main {
     private static String[] DEFAULT_CONFIG = {
             "SELECT ConceptName, ImageReference FROM QualityImageAnnotations WHERE ImageReference IS NOT NULL AND (" + "" +
                     // Midwater
-                    "ConceptName LIKE 'Apolemia' OR " +
-                    "ConceptName LIKE 'Gonatus' OR " +
-                    "ConceptName LIKE 'Bathochordaeus' OR " +
-                    "ConceptName LIKE 'Solmissus' OR " +
-                    "ConceptName LIKE 'Nanomia' OR " +
+                    // "ConceptName LIKE 'Apolemia' OR " +
+                    // "ConceptName LIKE 'Gonatus' OR " +
+                    // "ConceptName LIKE 'Bathochordaeus' OR " +
+                    // "ConceptName LIKE 'Solmissus' OR " +
+                    // "ConceptName LIKE 'Nanomia' OR " +
                     "ConceptName LIKE 'Aegina' OR " +
                     // Benthic
-                    "ConceptName LIKE 'Chionoecetes' OR " +
-                    "ConceptName LIKE 'Funiculina' OR " +
-                    "ConceptName LIKE 'Pannychia' OR " +
-                    "ConceptName LIKE 'Sebastes' OR " +
+                    // "ConceptName LIKE 'Chionoecetes' OR " +
+                    // "ConceptName LIKE 'Funiculina' OR " +
+                    // "ConceptName LIKE 'Pannychia' OR " +
+                    // "ConceptName LIKE 'Sebastes' OR " +
                     "ConceptName LIKE 'Sebastolobus' OR " +
                     // Geology
-                    "ConceptName LIKE 'pillow lava' OR " +
+                    // "ConceptName LIKE 'pillow lava' OR " +
                     "ConceptName LIKE 'gravel'" +
             ")",
             "false"
