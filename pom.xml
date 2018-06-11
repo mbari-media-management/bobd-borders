@@ -55,8 +55,8 @@
         </plugins>
     </build>
 
-    <groupId>org.varsclean</groupId>
-    <artifactId>varsclean</artifactId>
+    <groupId>org.bobd-borders</groupId>
+    <artifactId>bobd-borders</artifactId>
     <version>1.0.0</version>
     <dependencies>
         <dependency>
