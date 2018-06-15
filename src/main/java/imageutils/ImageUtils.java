@@ -1,36 +1,17 @@
-package image_proc;
+package imageutils;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * @author Kevin Barnard
  * @since 2018-06-07T010:00:00
  */
-public class ImageTools {
+public class ImageUtils {
 
     /**
      * Threshold value for black pixel component intersection
      */
-    private static final int B_MAX = 30;
-
-    /**
-     * Fetch image from internet given url
-     *
-     * @param url
-     * @return BufferedImage
-     */
-    public static BufferedImage fetchImage(String url) {
-        try {
-            BufferedImage ret = ImageIO.read(new URL(url));
-            return ret;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    private static final int B_MAX_DEFAULT = 30;
 
     /**
      * Strips the black bars from each side of an image. Black bars do not need to be uniform, threshold specified by static value
@@ -39,7 +20,7 @@ public class ImageTools {
      * @param image Image to be stripped
      * @return Stripped image
      */
-    public static BufferedImage removeBlackBars(BufferedImage image) {
+    public static BufferedImage removeBorders(BufferedImage image) {
 
         int width = image.getWidth();
         int height = image.getHeight();
@@ -119,7 +100,11 @@ public class ImageTools {
      * @return true if pixel is "black"
      */
     private static boolean isBlack(BufferedImage image, int x, int y) {
-        return (getR(image, x, y) <= B_MAX && getG(image, x, y) <= B_MAX && getB(image, x, y) <= B_MAX);
+        return (
+                getR(image, x, y) <= B_MAX_DEFAULT &&
+                        getG(image, x, y) <= B_MAX_DEFAULT &&
+                        getB(image, x, y) <= B_MAX_DEFAULT
+        );
     }
 
 }
