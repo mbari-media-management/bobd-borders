@@ -5,7 +5,7 @@ Application to fetch images from VARS database and remove black borders.
 To run this application, run the following from the command line (JRE 8 / JDK 8 must be installed):
 
 ```bash
-java -jar bobd-borders-1.0.0.jar path/to/images/ path/to/output/
+java -jar bobd-borders.jar path/to/images/ path/to/output/
 ```
 
 ## Build
