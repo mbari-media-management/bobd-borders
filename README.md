@@ -1,5 +1,5 @@
 # bobd-borders
-Application to fetch images from VARS database and remove black borders.
+Application to remove black borders from a folder of PNGs.
 
 ## Usage
 To run this application, run the following from the command line (JRE 8 / JDK 8 must be installed):
