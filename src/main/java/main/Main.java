@@ -3,6 +3,7 @@ package main;
 import imageutils.ImageUtils;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,9 +32,10 @@ public class Main {
 
         File[] inputFiles = inputFolder.listFiles();
 
+        assert inputFiles != null;
         for (File inputFile : inputFiles) {
 
-            if (inputFile.isDirectory()) {
+            if (inputFile.isDirectory()) { // Process subdirectory
                 File subDir = new File(String.join(
                         "/",
                         outputFolder.getAbsolutePath(),
@@ -42,9 +44,10 @@ public class Main {
                                 ""
                         )
                 ));
-                subDir.mkdir();
+                if (!subDir.exists() && !subDir.mkdir())
+                    System.err.println("Error creating subdirectory " + subDir.getPath());
                 processImages(inputFile, subDir);
-            } else {
+            } else { // Process image
                 String fileName = inputFile.getName();
 
                 if (!fileName.substring(fileName.length() - 4).equals(".png")) {
@@ -52,13 +55,22 @@ public class Main {
                     continue;
                 }
 
-                System.out.println("Processing " + inputFile.getName());
+                System.out.print("Processing " + inputFile.getPath());
+
+                long inputSize = inputFile.length();
+
+                long start = System.nanoTime();
+
                 File outputFile = new File(outputFolder, fileName);
                 try {
-                    ImageIO.write(ImageUtils.removeBorders(ImageIO.read(inputFile)), "png", outputFile);
+                    BufferedImage processedImage = ImageUtils.removeBorders(ImageIO.read(inputFile));
+                    ImageIO.write(processedImage, "png", outputFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                System.out.println(" " + Math.round(inputSize / 1000. / ((System.nanoTime() - start)/1000000000.) * 10)/10. + " kB/s");
+
             }
         }
 
@@ -95,10 +107,8 @@ public class Main {
         }
         if (!success) return null;
 
-        if (!folders[1].exists()) {
-            System.out.println("Creating directory " + folders[1].getAbsolutePath());
-            folders[1].mkdir();
-        }
+        if (!folders[1].exists() && !folders[1].mkdir())
+            System.err.println("Error creating directory " + folders[1].getAbsolutePath());
 
         return folders;
 

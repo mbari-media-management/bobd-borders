@@ -22,56 +22,36 @@ public class ImageUtils {
      */
     public static BufferedImage removeBorders(BufferedImage image) {
 
-        int width = image.getWidth();
-        int height = image.getHeight();
+        // Start and end bounds
+        int startX = 0, endX = image.getWidth();
+        int startY = 0, endY = image.getHeight();
 
-        int startX = 0, endX = width;
-        int startY = 0, endY = height;
-
-        boolean blackBarTop = true;
-        while (blackBarTop) {
-            for (int x = 0; x < width; x++) {
-                if (!isBlack(image, x, startY)) {
-                    blackBarTop = false;
+        // Detect bars and update start and end bounds
+        boolean blackBarTB = true, blackBarLR = true;
+        while (blackBarTB || blackBarLR) {
+            for (int x = 0; x < endX; x++) {
+                if (!isBlack(image, x, startY) || !isBlack(image, x, endY - 1)) {
+                    blackBarTB = false;
                     break;
                 }
             }
-            if (blackBarTop) startY++;
-        }
-
-        boolean blackBarBottom = true;
-        while (blackBarBottom) {
-            for (int x = 0; x < width; x++) {
-                if (!isBlack(image, x, endY - 1)) {
-                    blackBarBottom = false;
-                    break;
-                }
-            }
-            if (blackBarBottom) endY--;
-        }
-
-        boolean blackBarLeft = true;
-        while (blackBarLeft) {
             for (int y = startY; y < endY; y++) {
-                if (!isBlack(image, startX, y)) {
-                    blackBarLeft = false;
+                if (!isBlack(image, startX, y) || !isBlack(image, endX - 1, y)) {
+                    blackBarLR = false;
                     break;
                 }
             }
-            if (blackBarLeft) startX++;
-        }
-
-        boolean blackBarRight = true;
-        while (blackBarRight) {
-            for (int y = startY; y < endY; y++) {
-                if (!isBlack(image, endX - 1, y)) {
-                    blackBarRight = false;
-                    break;
-                }
+            if (blackBarTB) {
+                startY++;
+                endY--;
             }
-            if (blackBarRight) endX--;
+            if (blackBarLR) {
+                startX++;
+                endX--;
+            }
         }
 
+        // Replace image
         image = image.getSubimage(startX, startY, endX - startX, endY - startY);
 
         return image;
