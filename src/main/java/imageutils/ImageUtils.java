@@ -26,29 +26,50 @@ public class ImageUtils {
         int startX = 0, endX = image.getWidth();
         int startY = 0, endY = image.getHeight();
 
-        // Detect bars and update start and end bounds
-        boolean blackBarTB = true, blackBarLR = true;
-        while (blackBarTB || blackBarLR) {
+        // Bar existence
+        boolean barTop = true,
+                barLeft = true,
+                barBottom = true,
+                barRight = true;
+
+        // Top bar
+        while (barTop) {
             for (int x = 0; x < endX; x++) {
-                if (!isBlack(image, x, startY) || !isBlack(image, x, endY - 1)) {
-                    blackBarTB = false;
-                    break;
+                if (!isBlack(image, x, startY)) {
+                    barTop = false;
                 }
             }
+            if (barTop) startY++;
+        }
+
+        // Left bar
+        while (barLeft) {
             for (int y = startY; y < endY; y++) {
-                if (!isBlack(image, startX, y) || !isBlack(image, endX - 1, y)) {
-                    blackBarLR = false;
-                    break;
+                if (!isBlack(image, startX, y)) {
+                    barLeft = false;
                 }
             }
-            if (blackBarTB) {
-                startY++;
-                endY--;
+            if (barLeft) startX++;
+        }
+
+        // Bottom bar
+        while (barBottom) {
+            for (int x = 0; x < endX; x++) {
+                if (!isBlack(image, x, endY - 1)) {
+                    barBottom = false;
+                }
             }
-            if (blackBarLR) {
-                startX++;
-                endX--;
+            if (barBottom) endY--;
+        }
+
+        // Right bar
+        while (barRight) {
+            for (int y = startY; y < endY; y++) {
+                if (!isBlack(image, endX - 1, y)) {
+                    barRight = false;
+                }
             }
+            if (barRight) endX--;
         }
 
         // Replace image
